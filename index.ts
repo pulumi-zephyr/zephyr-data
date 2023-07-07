@@ -1,16 +1,19 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 
-// Get the current stack name
+// Get the current organization and stack names
+const currentOrgName = pulumi.getOrganization();
 const currentStackName = pulumi.getStack();
 
-// Grab some values from the Pulumi stack configuration (or use default values)
+// Grab some configuration values
 const config = new pulumi.Config();
-const baseOrgName = config.get("baseOrgName") || "zephyr";
+// Use the current organization name if none is specified
+const baseOrgName = config.get("baseOrgName") || currentOrgName;
+const platformOrgName = config.get("platformOrgName") || currentOrgName;
 const baseProjName = config.get("baseProjName") || "zephyr-infra";
-const baseStackName = config.get("baseStackName") || currentStackName;
-const platformOrgName = config.get("platformOrgName") || "zephyr";
 const platformProjName = config.get("platformProjName") || "zephyr-k8s";
+// Use the current stack name if none is specified
+const baseStackName = config.get("baseStackName") || currentStackName;
 const platformStackName = config.get("platformStackName") || currentStackName;
 
 export = async() => {
@@ -23,7 +26,7 @@ export = async() => {
 
     // Create a StackReference and get information from platform stack
     const platformSr = new pulumi.StackReference(`${platformOrgName}/${platformProjName}/${platformStackName}`);
-    const nodeSecurityGrpDetails = await platformSr.getOutputDetails("nodeSecurityGrp");
+    const nodeSecurityGrpDetails = await platformSr.getOutputDetails("nodeSecurityGroup");
     const nodeSecurityGrpId = <string>nodeSecurityGrpDetails.value;
 
     // Interrogate the AWS API to retrieve information about the subnets
