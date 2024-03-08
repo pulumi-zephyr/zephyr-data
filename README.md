@@ -1,6 +1,6 @@
 # Zephyr Archaeotech Emporium Online Store - Data Infrastructure
 
-This is the source repository for Pulumi code to manage the data infrastructure supporting the online store for Zephyr Archaeotech Emporium. It's used in [Pulumi's Zephyr series of blog posts](https://www.pulumi.com/blog/iac-recommended-practices-code-organization-and-stacks/) to discuss best practices when using Pulumi to manage infrastructure and applications.
+This is the source repository for Pulumi code to manage the data infrastructure supporting the online store for Zephyr Archaeotech Emporium. It's used in [Pulumi's Zephyr series of blog posts](https://www.pulumi.com/blog/tag/zephyr/) to discuss best practices when using Pulumi to manage infrastructure and applications.
 
 ## Deploying with Pulumi
 
